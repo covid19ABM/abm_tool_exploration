@@ -5,7 +5,7 @@ In this document, we would like to review and compare a number of tools for deve
 ### Mesa (https://github.com/projectmesa/mesa) 
 
 - Contains all the necessary components for ABM simulation 
-- Nice feature: agent schedular, plugins and extensions 
+- Nice feature: agent schedular, plugins and extensions (which allows also GIS integration)
 - Nice extendability that allows sharing components in larger community (high impact) 
 - Actively maintained, latest release in Oct 2022. 
 
@@ -16,6 +16,8 @@ In this document, we would like to review and compare a number of tools for deve
 - SImpler syntax than its major competitors 
 - Relatively new addition, but it seems a stable version 
 - Extensive documentation 
+- fewer extensions than mesa
+- does not allow GIS integration (though this doesn't seem necessary after all for this project)
 
 Cons: it has a smaller community than other packages, meaning that there are fewer people (than mesa, for example) that have actually used it in their work and it requires some deeper exploration to see if it is equivalent to mesa 
 

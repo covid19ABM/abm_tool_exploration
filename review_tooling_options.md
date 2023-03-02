@@ -26,9 +26,12 @@ Cons: it has a smaller community than other packages, meaning that there are few
 - Python implementation of Repast HPC 
 - Allow building large, distributed agent-based models 
 
-### CppyAB90M (https://github.com/janursa/CppyABM) 
+### CppyABM (https://github.com/janursa/CppyABM) 
 
 - Mixed development in C++ and Python, so models developed in one language can be conveniently transferred to another (can be an addition if we want to scale up the model in the future). 
+- A model devleoped in C++ can be extended to Python through binding, but not possible the other way around.
+- No API references, have to check the docstrings and codes if really want to know what a method does.
+- Can't be installed properly in Windows and MacOS (will provide weird errors there), can be installed in Linux by compiling from source.
 
 ### PyNetLogo (https://github.com/quaquel/pyNetLogo) 
 

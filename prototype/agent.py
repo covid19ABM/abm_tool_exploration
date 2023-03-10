@@ -12,11 +12,11 @@ class Features():
                  'living_with_child', 'single_parent', 'housing_difficulties',
                  'finance_difficulties', 'pre_existing_health_issues',
                  'partner_difficulties']
-    name: str
+    name: int
     gender: int
     age: int
     education: str
-    employed: bool
+    employed: str
     partnership_status: str
     pre_existing_depression: bool
     pre_existing_burnout: bool
@@ -122,3 +122,30 @@ def generate_educational_attainment_distribution(n_people, low, medium, high):
     weights = list(options.values())
     educational_attainment = random.choices(choices, weights, k = n_people) 
     return(educational_attainment)
+
+def generate_employment_distribution(n_people, yes, no_seeking, no_other):
+    ''' Generate distribution of high, medium and low educational attainments in the population.
+    Parameters
+    ----------
+    n_people : int
+        Size of the population.
+    yes : float
+        Probability of being employed. 
+    no_seeking : float
+        Probability of not being employed, but looking for a job. 
+    no_other : float
+        Probability of not being employed, but not looking for a job. 
+        
+    Returns
+    ----------
+    employment : list
+        List of employment status in the population.
+    '''
+    options = {'Yes' : yes, 
+               'No, seeking employment' : no_seeking,
+               'No, other' : no_other}
+    
+    choices = list(options.keys())
+    weights = list(options.values())
+    employment = random.choices(choices, weights, k = n_people) 
+    return(employment)

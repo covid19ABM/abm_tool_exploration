@@ -221,3 +221,41 @@ def generate_pre_existing_burnout_distribution(n_people, percentage):
     burnout_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(burnout_distribution)       
     return burnout_distribution.astype(int)
+
+def generate_pre_existing_addiction_distribution(n_people, percentage):
+    ''' Generates proportion of people that experienced addiction in the past year 
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    addiction_distribution : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    addiction_distribution = np.ones(n_people)
+    addiction_distribution[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(addiction_distribution)       
+    return addiction_distribution.astype(int)
+
+def generate_pre_existing_fatigue_distribution(n_people, percentage):
+    ''' Generates proportion of people that experienced chronic fatigue in the past year 
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    fatigue_distribution : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    fatigue_distribution = np.ones(n_people)
+    fatigue_distribution[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(fatigue_distribution)       
+    return fatigue_distribution.astype(int)

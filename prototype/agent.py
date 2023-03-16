@@ -259,3 +259,41 @@ def generate_pre_existing_fatigue_distribution(n_people, percentage):
     fatigue_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(fatigue_distribution)       
     return fatigue_distribution.astype(int)
+
+def generate_child_distribution(n_people, percentage):
+    ''' Generates proportion of people that had a child since 2013
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    child_distribution : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    child_distribution = np.ones(n_people)
+    child_distribution[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(child_distribution)       
+    return child_distribution.astype(int)
+
+def generate_living_with_children_distribution(n_people, percentage):
+    ''' Generates proportion of people that currently lives with children
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    children_distribution : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    children_distribution = np.ones(n_people)
+    children_distribution[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(children_distribution)       
+    return children_distribution.astype(int)

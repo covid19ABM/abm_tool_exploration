@@ -66,7 +66,7 @@ def generate_gender_distribution(n_people, percentage):
     return gender_distribution.astype(int)
 
 def generate_age_distribution(n_people, n_age_groups, start, stop, prob):
-    ''' Generates age distribution
+    ''' Generates age groups distribution in the population
     Parameters
     ----------
     n_people : int
@@ -124,7 +124,7 @@ def generate_educational_attainment_distribution(n_people, low, medium, high):
     return(educational_attainment)
 
 def generate_employment_distribution(n_people, yes, no_seeking, no_other):
-    ''' Generate distribution of high, medium and low educational attainments in the population.
+    ''' Generate distribution of employment statuses in the population.
     Parameters
     ----------
     n_people : int
@@ -151,7 +151,7 @@ def generate_employment_distribution(n_people, yes, no_seeking, no_other):
     return(employment)
 
 def generate_partnership_statuts_distribution(n_people, single, married, live_in_partner, in_relationship_no_cohabitation, other):
-    ''' Generate distribution of high, medium and low educational attainments in the population.
+    ''' Generate distribution of partnership statuses in the population.
     Parameters
     ----------
     n_people : int

@@ -18,17 +18,17 @@ class Features():
     education: str
     employed: str
     partnership_status: str
-    pre_existing_depression: bool
-    pre_existing_burnout: bool
-    pre_existing_addiction: bool 
-    pre_existing_chronic_fatigue: bool
-    parenthood: bool
-    living_with_child: bool
-    single_parent: bool
-    housing_difficulties: bool
-    finance_difficulties: bool
-    pre_existing_health_issues: bool
-    partner_difficulties: bool
+    pre_existing_depression: int
+    pre_existing_burnout: int
+    pre_existing_addiction: int 
+    pre_existing_chronic_fatigue: int
+    parenthood: int
+    living_with_child: int
+    single_parent: int
+    housing_difficulties: int
+    finance_difficulties: int
+    pre_existing_health_issues: int
+    partner_difficulties: int
     
     def summary(self):
         ''' Generate a summary of the features '''
@@ -182,3 +182,42 @@ def generate_partnership_statuts_distribution(n_people, single, married, live_in
     weights = list(options.values())
     relationship = random.choices(choices, weights, k = n_people) 
     return(relationship)
+
+def generate_pre_existing_depression_distribution(n_people, percentage):
+    ''' Generates proportion of people that experienced depression in the past year 
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    depression_distribution : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    depression_distribution = np.ones(n_people)
+    depression_distribution[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(depression_distribution)       
+    return depression_distribution.astype(int)
+
+
+def generate_pre_existing_burnout_distribution(n_people, percentage):
+    ''' Generates proportion of people that experienced burnout in the past year 
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    burnout_distribution : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    burnout_distribution = np.ones(n_people)
+    burnout_distribution[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(burnout_distribution)       
+    return burnout_distribution.astype(int)

@@ -149,3 +149,36 @@ def generate_employment_distribution(n_people, yes, no_seeking, no_other):
     weights = list(options.values())
     employment = random.choices(choices, weights, k = n_people) 
     return(employment)
+
+def generate_partnership_statuts_distribution(n_people, single, married, live_in_partner, in_relationship_no_cohabitation, other):
+    ''' Generate distribution of high, medium and low educational attainments in the population.
+    Parameters
+    ----------
+    n_people : int
+        Size of the population.
+    single : float
+        Probability of being single. 
+    married : float
+        Probability of not married. 
+    live_in_partner : float
+        Probability of being in a relationship and living together. 
+    in_relationship_no_cohabitation : float
+        Probability of being in a relationship but not living together.
+    other : float
+        Probability of being in a partnership status that is none of the above.
+        
+    Returns
+    ----------
+    relationship : list
+        List of relationship status distribution in the population.
+    '''
+    options = {'Single' : single, 
+               'Married' : married,
+               'Live-in partner' : live_in_partner,
+               'In relationship, no cohabitation' : in_relationship_no_cohabitation,
+               'Other' : other}
+    
+    choices = list(options.keys())
+    weights = list(options.values())
+    relationship = random.choices(choices, weights, k = n_people) 
+    return(relationship)

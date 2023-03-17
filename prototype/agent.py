@@ -48,24 +48,21 @@ class Agent():
     ''' Represents an agent in our small world '''
     features: Features
     state: State
-    
     # go to work
     def go_to_work(self):
         ''' The agent is going to work '''
         self.state.n_contacts += 3
-        self.state.mental_health += 1
-        
+        self.state.mental_health += 1      
     def socialise(self):
         ''' The agent is socialising with other people '''
         self.state.n_contacts += 5
         self.state.mental_health += 3
         
     def summary(self):
-       ''' Generate a summary of the features '''
-       self.features.summary()
-       print(f'n_contacts: {self.state.n_contacts}')
+        ''' Generate a summary of the features '''
+        self.features.summary()
+        print(f'n_contacts: {self.state.n_contacts}')
 
-       
 def generate_gender_distribution(n_people, percentage):
     ''' Generates gender distribution
     Parameters
@@ -97,13 +94,14 @@ def generate_age_distribution(n_people, n_age_groups, min_age, max_age, prob):
         Maximum age.
     n_age_groups : int
         Number of age groups.
-    prob : list    
+    prob : list   
         Proportion of age prevalence for each age group (e.g., .25). Number of elements must match value in `n_age_groups`.
-        
+    
     Returns
     -------
     age_distribution : numpy array
-        Array of age distribution in the population. Proportions depend on `prob`.
+        Array of age distribution in the population. 
+        Proportions depend on `prob`.
     '''
 
     age_values = np.arange(min_age, max_age)  
@@ -117,31 +115,34 @@ def generate_age_distribution(n_people, n_age_groups, min_age, max_age, prob):
 
 
 def generate_educational_attainment_distribution(n_people, low, medium, high):
-    ''' Generate distribution of high, medium and low educational attainments in the population.
+    ''' Generate distribution of high, medium 
+    and low educational attainments in the population.
+    
     Parameters
     ----------
     n_people : int
         Size of the population.
     low : float
-        Probability of low educational attainment prevalence in the population. 
+        Probability of low educational attainment. 
     medium : float
-        Probability of medium educational attainment prevalence in the population. 
+        Probability of medium educational attainment. 
     high : float
-        Probability of high educational attainment prevalence in the population. 
+        Probability of high educational attainment. 
         
     Returns
     ----------
     educational_attainment : list
         List of type of educational attainments in the population.
     '''
-    options = {'Low' : low, 
-               'Medium' : medium,
-               'High' : high}
+    options = {'Low': low, 
+               'Medium': medium,
+               'High': high}
     
     choices = list(options.keys())
     weights = list(options.values())
-    educational_attainment = random.choices(choices, weights, k = n_people) 
-    return(educational_attainment)
+    educational_attainment = random.choices(choices, weights, k=n_people) 
+    return educational_attainment
+
 
 def generate_employment_distribution(n_people, yes, no_seeking, no_other):
     ''' Generate distribution of employment statuses in the population.
@@ -161,14 +162,15 @@ def generate_employment_distribution(n_people, yes, no_seeking, no_other):
     employment : list
         List of employment status in the population.
     '''
-    options = {'Yes' : yes, 
-               'No, seeking employment' : no_seeking,
-               'No, other' : no_other}
+    options = {'Yes': yes, 
+               'No, seeking employment': no_seeking,
+               'No, other': no_other}
     
     choices = list(options.keys())
     weights = list(options.values())
-    employment = random.choices(choices, weights, k = n_people) 
-    return(employment)
+    employment = random.choices(choices, weights, k=n_people) 
+    return employment
+
 
 def generate_partnership_statuts_distribution(n_people, single, married, live_in_partner, in_relationship_no_cohabitation, other):
     ''' Generate distribution of partnership statuses in the population.
@@ -192,19 +194,22 @@ def generate_partnership_statuts_distribution(n_people, single, married, live_in
     relationship : list
         Distribution of relationship statuses in the population.
     '''
-    options = {'Single' : single, 
-               'Married' : married,
-               'Live-in partner' : live_in_partner,
-               'In relationship, no cohabitation' : in_relationship_no_cohabitation,
-               'Other' : other}
+    options = {'Single': single, 
+               'Married': married,
+               'Live-in partner': live_in_partner,
+               'In relationship, no cohabitation': in_relationship_no_cohabitation,
+               'Other': other}
     
     choices = list(options.keys())
     weights = list(options.values())
-    relationship = random.choices(choices, weights, k = n_people) 
-    return(relationship)
+    relationship = random.choices(choices, weights, k=n_people) 
+    return relationship
+
 
 def generate_pre_existing_depression_distribution(n_people, percentage):
-    ''' Generates proportion of people that experienced depression in the past year 
+    ''' Generates proportion of people 
+    that experienced depression in the past year 
+    
     Parameters
     ----------
     n_people : int
@@ -215,7 +220,8 @@ def generate_pre_existing_depression_distribution(n_people, percentage):
     Returns
     -------
     depression_distribution : numpy array
-        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+        Array of 1s and 0s (1 = yes, 0 = no) whose 
+        proportions depend on `percentage`.
     '''
     depression_distribution = np.ones(n_people)
     depression_distribution[:int((n_people * percentage) / 100)] = 0
@@ -224,7 +230,9 @@ def generate_pre_existing_depression_distribution(n_people, percentage):
 
 
 def generate_pre_existing_burnout_distribution(n_people, percentage):
-    ''' Generates proportion of people that experienced burnout in the past year 
+    ''' Generates proportion of people that 
+    experienced burnout in the past year
+     
     Parameters
     ----------
     n_people : int
@@ -235,15 +243,19 @@ def generate_pre_existing_burnout_distribution(n_people, percentage):
     Returns
     -------
     burnout_distribution : numpy array
-        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+        Array of 1s and 0s (1 = yes, 0 = no) 
+        whose proportion depend on `percentage`.
     '''
     burnout_distribution = np.ones(n_people)
     burnout_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(burnout_distribution)       
     return burnout_distribution.astype(int)
 
+
 def generate_pre_existing_addiction_distribution(n_people, percentage):
-    ''' Generates proportion of people that experienced addiction in the past year 
+    ''' Generates proportion of people that 
+    experienced addiction in the past year 
+    
     Parameters
     ----------
     n_people : int
@@ -261,8 +273,11 @@ def generate_pre_existing_addiction_distribution(n_people, percentage):
     np.random.shuffle(addiction_distribution)       
     return addiction_distribution.astype(int)
 
+
 def generate_pre_existing_fatigue_distribution(n_people, percentage):
-    ''' Generates proportion of people that experienced chronic fatigue in the past year 
+    ''' Generates proportion of people that 
+    experienced chronic fatigue in the past year 
+    
     Parameters
     ----------
     n_people : int
@@ -273,12 +288,14 @@ def generate_pre_existing_fatigue_distribution(n_people, percentage):
     Returns
     -------
     fatigue_distribution : numpy array
-        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+        Array of 1s and 0s (1 = yes, 0 = no) whose 
+        proportions depend on `percentage`.
     '''
     fatigue_distribution = np.ones(n_people)
     fatigue_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(fatigue_distribution)       
     return fatigue_distribution.astype(int)
+
 
 def generate_child_distribution(n_people, percentage):
     ''' Generates proportion of people that had a child since 2013
@@ -292,15 +309,18 @@ def generate_child_distribution(n_people, percentage):
     Returns
     -------
     child_distribution : numpy array
-        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+        Array of 1s and 0s (1 = yes, 0 = no) whose 
+        proportions depend on `percentage`.
     '''
     child_distribution = np.ones(n_people)
     child_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(child_distribution)       
     return child_distribution.astype(int)
 
+
 def generate_living_with_children_distribution(n_people, percentage):
     ''' Generates proportion of people that currently lives with children
+    
     Parameters
     ----------
     n_people : int
@@ -311,12 +331,14 @@ def generate_living_with_children_distribution(n_people, percentage):
     Returns
     -------
     children_distribution : numpy array
-        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+        Array of 1s and 0s (1 = yes, 0 = no) whose 
+        proportions depend on `percentage`.
     '''
     children_distribution = np.ones(n_people)
     children_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(children_distribution)       
     return children_distribution.astype(int)
+
 
 def generate_single_parent_distribution(n_people, percentage):
     ''' Generates proportion of people that are single parents
@@ -337,8 +359,11 @@ def generate_single_parent_distribution(n_people, percentage):
     np.random.shuffle(single_parent)       
     return single_parent.astype(int)
 
+
 def generate_health_difficulties_distribution(n_people, no, some, many):
-    ''' Generate distribution of people that experienced difficulties with health in the past year
+    ''' Generate distribution of people that 
+    experienced difficulties with health in the past year
+    
     Parameters
     ----------
     n_people : int
@@ -346,26 +371,29 @@ def generate_health_difficulties_distribution(n_people, no, some, many):
     no : float
         Probability of not having developed health difficulties in the past year.
     some : float
-        Probability of not having developed some health difficulties in the past year.
+        Probability of having developed some health difficulties in the past year.
     many : float
-        Probability of not having developed many health difficulties in the past year. 
+        Probability of having developed many health difficulties in the past year. 
         
     Returns
     ----------
     relationship : list
         Distribution of health difficulties in the population.
     '''
-    options = {'No' : no, 
-               'Some' : some,
-               'Many' : many}
+    options = {'No': no, 
+               'Some': some,
+               'Many': many}
     
     choices = list(options.keys())
     weights = list(options.values())
-    health = random.choices(choices, weights, k = n_people) 
-    return(health)
+    health = random.choices(choices, weights, k=n_people) 
+    return health
+
 
 def generate_finance_difficulties_distribution(n_people, no, some, many):
-    ''' Generate distribution of people that experienced difficulties with finance in the past year
+    ''' Generate distribution of people that 
+    experienced difficulties with finance in the past year
+    
     Parameters
     ----------
     n_people : int
@@ -382,18 +410,20 @@ def generate_finance_difficulties_distribution(n_people, no, some, many):
     relationship : list
         Distribution of finance difficulties in the population.
     '''
-    options = {'No' : no, 
-               'Some' : some,
-               'Many' : many}
+    options = {'No': no, 
+               'Some': some,
+               'Many': many}
     
     choices = list(options.keys())
     weights = list(options.values())
-    finance = random.choices(choices, weights, k = n_people) 
+    finance = random.choices(choices, weights, k=n_people) 
     return(finance)
 
 
 def generate_housing_difficulties_distribution(n_people, no, some, many):
-    ''' Generate distribution of people that experienced difficulties with housing in the past year
+    ''' Generate distribution of people that 
+    experienced difficulties with housing in the past year
+    
     Parameters
     ----------
     n_people : int
@@ -410,17 +440,20 @@ def generate_housing_difficulties_distribution(n_people, no, some, many):
     relationship : list
         Distribution of housing difficulties in the population.
     '''
-    options = {'No' : no, 
-               'Some' : some,
-               'Many' : many}
+    options = {'No': no, 
+               'Some': some,
+               'Many': many}
     
     choices = list(options.keys())
     weights = list(options.values())
-    housing = random.choices(choices, weights, k = n_people) 
-    return(housing)
+    housing = random.choices(choices, weights, k=n_people) 
+    return housing
+
 
 def generate_partner_difficulties_distribution(n_people, no, some, many):
-    ''' Generate distribution of people that experienced difficulties with their partner in the past year
+    ''' Generate distribution of people that 
+    experienced difficulties with their partner in the past year
+    
     Parameters
     ----------
     n_people : int
@@ -437,14 +470,14 @@ def generate_partner_difficulties_distribution(n_people, no, some, many):
     relationship : list
         Distribution of partner difficulties in the population.
     '''
-    options = {'No' : no, 
-               'Some' : some,
-               'Many' : many}
-    
+    options = {'No': no, 
+               'Some': some,
+               'Many': many}
+   
     choices = list(options.keys())
     weights = list(options.values())
-    partner = random.choices(choices, weights, k = n_people) 
-    return(partner)
+    partner = random.choices(choices, weights, k=n_people) 
+    return partner
 
 
 def make_population(parameters):
@@ -464,9 +497,9 @@ def make_population(parameters):
     n_people = parameters['n']
     gd = generate_gender_distribution(n_people=n_people, percentage=parameters['%_gender'])
     ad = generate_age_distribution(n_people=n_people, n_age_groups=parameters['n_age_groups'], min_age=parameters['min_age'], max_age=parameters['max_age'], prob=parameters['age_strata'])
-    ea = generate_educational_attainment_distribution(n_people = n_people, low = parameters['low_education'], medium=parameters['medium_education'], high=parameters['high_education'])
-    ed = generate_employment_distribution(n_people = n_people, yes = parameters['employed_true'], no_seeking=parameters['employed_false_seeking'], no_other=parameters['employed_false_other'])
-    pd = generate_partnership_statuts_distribution(n_people= n_people, single=parameters['single'], married=parameters['married'], live_in_partner=parameters['live_in_partner'], in_relationship_no_cohabitation=parameters['in_relationship_no_cohabitation'], other=parameters['other_relationship'])
+    ea = generate_educational_attainment_distribution(n_people=n_people, low=parameters['low_education'], medium=parameters['medium_education'], high=parameters['high_education'])
+    ed = generate_employment_distribution(n_people=n_people, yes=parameters['employed_true'], no_seeking=parameters['employed_false_seeking'], no_other=parameters['employed_false_other'])
+    pd = generate_partnership_statuts_distribution(n_people=n_people, single=parameters['single'], married=parameters['married'], live_in_partner=parameters['live_in_partner'], in_relationship_no_cohabitation=parameters['in_relationship_no_cohabitation'], other=parameters['other_relationship'])
     dd = generate_pre_existing_depression_distribution(n_people=n_people, percentage=parameters['%_depression'])
     pad = generate_pre_existing_addiction_distribution(n_people=n_people, percentage=parameters['%_addiction'])
     pfd = generate_pre_existing_fatigue_distribution(n_people=n_people, percentage=parameters['%_fatigue'])
@@ -481,28 +514,28 @@ def make_population(parameters):
     people = []
 
     for i in range(n_people):
-        features = Features(name = str(i),
-                            gender = gd[i], 
-                            age = ad[i], 
-                            education = ea[i], 
-                            employed = ed[i], 
-                            partnership_status = pd[i], 
-                            pre_existing_depression = dd[i], 
-                            pre_existing_burnout = pbd[i], 
-                            pre_existing_addiction = pad[i], 
-                            pre_existing_chronic_fatigue = pfd[i], 
-                            pre_existing_health_issues = hd[i], 
-                            parenthood = cd[i], 
-                            living_with_child = lcd[i], 
-                            single_parent = spd[i], 
-                            housing_difficulties = hdd[i], 
-                            finance_difficulties = fd[i], 
-                            partner_difficulties = pdd[i])
+        features = Features(name=str(i),
+                            gender=gd[i], 
+                            age=ad[i], 
+                            education=ea[i], 
+                            employed=ed[i], 
+                            partnership_status=pd[i], 
+                            pre_existing_depression=dd[i], 
+                            pre_existing_burnout=pbd[i], 
+                            pre_existing_addiction=pad[i], 
+                            pre_existing_chronic_fatigue=pfd[i], 
+                            pre_existing_health_issues=hd[i], 
+                            parenthood=cd[i], 
+                            living_with_child=lcd[i], 
+                            single_parent=spd[i], 
+                            housing_difficulties=hdd[i], 
+                            finance_difficulties=fd[i], 
+                            partner_difficulties=pdd[i])
         
-        state =  State(employed=np.random.choice(2), 
-                        infected= 0, 
-                        mental_health= 2,
-                        n_contacts= 0)
+        state = State(employed=np.random.choice(2),
+                      infected=0,
+                      mental_health=2,
+                      n_contacts=0)
         
         people.append(Agent(features=features, state=state))
-    return(people)
+    return people

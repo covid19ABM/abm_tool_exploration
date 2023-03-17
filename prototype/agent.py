@@ -462,26 +462,26 @@ def make_population(parameters):
     '''
     
     n_people = parameters['n']
-    gd = ag.generate_gender_distribution(n_people=n_people, percentage=parameters['%_gender'])
-    ad = ag.generate_age_distribution(n_people=n_people, n_age_groups=parameters['n_age_groups'], min_age=parameters['min_age'], max_age=parameters['max_age'], prob=parameters['age_strata'])
-    ea = ag.generate_educational_attainment_distribution(n_people = n_people, low = parameters['low_education'], medium=parameters['medium_education'], high=parameters['high_education'])
-    ed = ag.generate_employment_distribution(n_people = n_people, yes = parameters['employed_true'], no_seeking=parameters['employed_false_seeking'], no_other=parameters['employed_false_other'])
-    pd = ag.generate_partnership_statuts_distribution(n_people= n_people, single=parameters['single'], married=parameters['married'], live_in_partner=parameters['live_in_partner'], in_relationship_no_cohabitation=parameters['in_relationship_no_cohabitation'], other=parameters['other_relationship'])
-    dd = ag.generate_pre_existing_depression_distribution(n_people=n_people, percentage=parameters['%_depression'])
-    pad = ag.generate_pre_existing_addiction_distribution(n_people=n_people, percentage=parameters['%_addiction'])
-    pfd = ag.generate_pre_existing_fatigue_distribution(n_people=n_people, percentage=parameters['%_fatigue'])
-    cd = ag.generate_child_distribution(n_people=n_people, percentage=parameters['%_child'])
-    pbd = ag.generate_pre_existing_burnout_distribution(n_people=n_people, percentage=parameters['%_burnout'])
-    lcd = ag.generate_living_with_children_distribution(n_people=n_people, percentage=parameters['%_child_inhouse'])
-    hd = ag.generate_health_difficulties_distribution(n_people=n_people, no=parameters['health_difficulties_false'], some=parameters['health_difficulties_some'], many=parameters['health_difficulties_many'])
-    fd = ag.generate_finance_difficulties_distribution(n_people=n_people, no=parameters['finance_difficulties_false'], some=parameters['finance_difficulties_some'], many=parameters['finance_difficulties_many'])
-    spd = ag.generate_single_parent_distribution(n_people=n_people, percentage=parameters['%_single_parent'])
-    hdd = ag.generate_housing_difficulties_distribution(n_people=n_people, no=79, some=18, many=3)
-    pdd = ag.generate_partner_difficulties_distribution(n_people=n_people, no=parameters['housing_difficulties_false'], some=parameters['housing_difficulties_some'], many=parameters['housing_difficulties_many'])
+    gd = generate_gender_distribution(n_people=n_people, percentage=parameters['%_gender'])
+    ad = generate_age_distribution(n_people=n_people, n_age_groups=parameters['n_age_groups'], min_age=parameters['min_age'], max_age=parameters['max_age'], prob=parameters['age_strata'])
+    ea = generate_educational_attainment_distribution(n_people = n_people, low = parameters['low_education'], medium=parameters['medium_education'], high=parameters['high_education'])
+    ed = generate_employment_distribution(n_people = n_people, yes = parameters['employed_true'], no_seeking=parameters['employed_false_seeking'], no_other=parameters['employed_false_other'])
+    pd = generate_partnership_statuts_distribution(n_people= n_people, single=parameters['single'], married=parameters['married'], live_in_partner=parameters['live_in_partner'], in_relationship_no_cohabitation=parameters['in_relationship_no_cohabitation'], other=parameters['other_relationship'])
+    dd = generate_pre_existing_depression_distribution(n_people=n_people, percentage=parameters['%_depression'])
+    pad = generate_pre_existing_addiction_distribution(n_people=n_people, percentage=parameters['%_addiction'])
+    pfd = generate_pre_existing_fatigue_distribution(n_people=n_people, percentage=parameters['%_fatigue'])
+    cd = generate_child_distribution(n_people=n_people, percentage=parameters['%_child'])
+    pbd = generate_pre_existing_burnout_distribution(n_people=n_people, percentage=parameters['%_burnout'])
+    lcd = generate_living_with_children_distribution(n_people=n_people, percentage=parameters['%_child_inhouse'])
+    hd = generate_health_difficulties_distribution(n_people=n_people, no=parameters['health_difficulties_false'], some=parameters['health_difficulties_some'], many=parameters['health_difficulties_many'])
+    fd = generate_finance_difficulties_distribution(n_people=n_people, no=parameters['finance_difficulties_false'], some=parameters['finance_difficulties_some'], many=parameters['finance_difficulties_many'])
+    spd = generate_single_parent_distribution(n_people=n_people, percentage=parameters['%_single_parent'])
+    hdd = generate_housing_difficulties_distribution(n_people=n_people, no=79, some=18, many=3)
+    pdd = generate_partner_difficulties_distribution(n_people=n_people, no=parameters['housing_difficulties_false'], some=parameters['housing_difficulties_some'], many=parameters['housing_difficulties_many'])
     people = []
 
     for i in range(n_people):
-        features = ag.Features(name = str(i),
+        features = Features(name = str(i),
                             gender = gd[i], 
                             age = ad[i], 
                             education = ea[i], 
@@ -499,10 +499,10 @@ def make_population(parameters):
                             finance_difficulties = fd[i], 
                             partner_difficulties = pdd[i])
         
-        state = ag.State(employed=np.random.choice(2), 
+        state =  State(employed=np.random.choice(2), 
                         infected= 0, 
                         mental_health= 2,
                         n_contacts= 0)
         
-        people.append(ag.Agent(features=features, state=state))
+        people.append(Agent(features=features, state=state))
     return(people)

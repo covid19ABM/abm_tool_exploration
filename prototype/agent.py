@@ -2,6 +2,7 @@ from dataclasses import dataclass, fields
 import numpy as np
 import random
 
+
 @dataclass
 class Features():
     ''' Features of the agents '''
@@ -35,6 +36,7 @@ class Features():
         for field in fields(self):
             print(f'{field.name}: {getattr(self, field.name)}')
 
+
 @dataclass
 class State():
     ''' Mutable states of the agents '''
@@ -42,6 +44,7 @@ class State():
     infected: int
     mental_health: int
     n_contacts: int
+
 
 @dataclass
 class Agent():
@@ -56,12 +59,12 @@ class Agent():
     def socialise(self):
         ''' The agent is socialising with other people '''
         self.state.n_contacts += 5
-        self.state.mental_health += 3
-        
+        self.state.mental_health += 3 
     def summary(self):
         ''' Generate a summary of the features '''
         self.features.summary()
         print(f'n_contacts: {self.state.n_contacts}')
+
 
 def generate_gender_distribution(n_people, percentage):
     ''' Generates gender distribution
@@ -81,6 +84,7 @@ def generate_gender_distribution(n_people, percentage):
     gender_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(gender_distribution)       
     return gender_distribution.astype(int)
+
 
 def generate_age_distribution(n_people, n_age_groups, min_age, max_age, prob):
     ''' Generates age groups distribution in the population

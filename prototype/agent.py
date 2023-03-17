@@ -25,26 +25,46 @@ class Features():
     parenthood: int
     living_with_child: int
     single_parent: int
-    housing_difficulties: int
-    finance_difficulties: int
-    pre_existing_health_issues: int
-    partner_difficulties: int
+    housing_difficulties: str
+    finance_difficulties: str
+    pre_existing_health_issues: str
+    partner_difficulties: str
     
     def summary(self):
         ''' Generate a summary of the features '''
         for field in fields(self):
             print(f'{field.name}: {getattr(self, field.name)}')
-        
+
+@dataclass
+class State():
+    ''' Mutable states of the agents '''
+    employed: int
+    infected: int
+    mental_health: int
+    n_contacts: int
+
 @dataclass
 class Agent():
     ''' Represents an agent in our small world '''
     features: Features
-    n_contacts: int = 0
+    state: State
     
+    # go to work
+    def go_to_work(self):
+        ''' The agent is going to work '''
+        self.state.n_contacts += 3
+        self.state.mental_health += 1
+        
+    def socialise(self):
+        ''' The agent is socialising with other people '''
+        self.state.n_contacts += 5
+        self.state.mental_health += 3
+        
     def summary(self):
        ''' Generate a summary of the features '''
        self.features.summary()
-       print(f'n_contacts: {self.n_contacts}')
+       print(f'n_contacts: {self.state.n_contacts}')
+
        
 def generate_gender_distribution(n_people, percentage):
     ''' Generates gender distribution
@@ -65,15 +85,15 @@ def generate_gender_distribution(n_people, percentage):
     np.random.shuffle(gender_distribution)       
     return gender_distribution.astype(int)
 
-def generate_age_distribution(n_people, n_age_groups, start, stop, prob):
+def generate_age_distribution(n_people, n_age_groups, min_age, max_age, prob):
     ''' Generates age groups distribution in the population
     Parameters
     ----------
     n_people : int
         Size of the population.
-    start : int
+    min_age : int
         Minimum age.
-    stop : int
+    max_age : int
         Maximum age.
     n_age_groups : int
         Number of age groups.
@@ -86,7 +106,7 @@ def generate_age_distribution(n_people, n_age_groups, start, stop, prob):
         Array of age distribution in the population. Proportions depend on `prob`.
     '''
 
-    age_values = np.arange(start, stop)  
+    age_values = np.arange(min_age, max_age)  
     age_groups = np.array_split(age_values, n_age_groups)
 
     age_distribution = []
@@ -170,7 +190,7 @@ def generate_partnership_statuts_distribution(n_people, single, married, live_in
     Returns
     ----------
     relationship : list
-        List of relationship status distribution in the population.
+        Distribution of relationship statuses in the population.
     '''
     options = {'Single' : single, 
                'Married' : married,
@@ -297,3 +317,131 @@ def generate_living_with_children_distribution(n_people, percentage):
     children_distribution[:int((n_people * percentage) / 100)] = 0
     np.random.shuffle(children_distribution)       
     return children_distribution.astype(int)
+
+def generate_single_parent_distribution(n_people, percentage):
+    ''' Generates proportion of people that are single parents
+    Parameters
+    ----------
+    n_people : int
+        size of the population.
+    percentage : int
+        ratio of yes (1) over no (0) (e.g., 50 for 50%)
+
+    Returns
+    -------
+    single_parent : numpy array
+        Array of 1s and 0s (1 = yes, 0 = no) whose proportions depend on `percentage`.
+    '''
+    single_parent = np.ones(n_people)
+    single_parent[:int((n_people * percentage) / 100)] = 0
+    np.random.shuffle(single_parent)       
+    return single_parent.astype(int)
+
+def generate_health_difficulties_distribution(n_people, no, some, many):
+    ''' Generate distribution of people that experienced difficulties with health in the past year
+    Parameters
+    ----------
+    n_people : int
+        Size of the population.
+    no : float
+        Probability of not having developed health difficulties in the past year.
+    some : float
+        Probability of not having developed some health difficulties in the past year.
+    many : float
+        Probability of not having developed many health difficulties in the past year. 
+        
+    Returns
+    ----------
+    relationship : list
+        Distribution of health difficulties in the population.
+    '''
+    options = {'No' : no, 
+               'Some' : some,
+               'Many' : many}
+    
+    choices = list(options.keys())
+    weights = list(options.values())
+    health = random.choices(choices, weights, k = n_people) 
+    return(health)
+
+def generate_finance_difficulties_distribution(n_people, no, some, many):
+    ''' Generate distribution of people that experienced difficulties with finance in the past year
+    Parameters
+    ----------
+    n_people : int
+        Size of the population.
+    no : float
+        Probability of not having developed finance difficulties in the past year.
+    some : float
+        Probability of not having developed some finance difficulties in the past year.
+    many : float
+        Probability of not having developed many finance difficulties in the past year. 
+        
+    Returns
+    ----------
+    relationship : list
+        Distribution of finance difficulties in the population.
+    '''
+    options = {'No' : no, 
+               'Some' : some,
+               'Many' : many}
+    
+    choices = list(options.keys())
+    weights = list(options.values())
+    finance = random.choices(choices, weights, k = n_people) 
+    return(finance)
+
+
+def generate_housing_difficulties_distribution(n_people, no, some, many):
+    ''' Generate distribution of people that experienced difficulties with housing in the past year
+    Parameters
+    ----------
+    n_people : int
+        Size of the population.
+    no : float
+        Probability of not having developed housing difficulties in the past year.
+    some : float
+        Probability of not having developed some housing difficulties in the past year.
+    many : float
+        Probability of not having developed many housing difficulties in the past year. 
+        
+    Returns
+    ----------
+    relationship : list
+        Distribution of housing difficulties in the population.
+    '''
+    options = {'No' : no, 
+               'Some' : some,
+               'Many' : many}
+    
+    choices = list(options.keys())
+    weights = list(options.values())
+    housing = random.choices(choices, weights, k = n_people) 
+    return(housing)
+
+def generate_partner_difficulties_distribution(n_people, no, some, many):
+    ''' Generate distribution of people that experienced difficulties with their partner in the past year
+    Parameters
+    ----------
+    n_people : int
+        Size of the population.
+    no : float
+        Probability of not having developed partner difficulties in the past year.
+    some : float
+        Probability of not having developed some partner difficulties in the past year.
+    many : float
+        Probability of not having developed many partner difficulties in the past year. 
+        
+    Returns
+    ----------
+    relationship : list
+        Distribution of partner difficulties in the population.
+    '''
+    options = {'No' : no, 
+               'Some' : some,
+               'Many' : many}
+    
+    choices = list(options.keys())
+    weights = list(options.values())
+    partner = random.choices(choices, weights, k = n_people) 
+    return(partner)
